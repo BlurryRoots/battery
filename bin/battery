@@ -1,0 +1,14 @@
+#!/bin/bash
+
+if [ ! -e $BATTERY_LOCATION ]; then
+	echo "Could not find \$_battery_location !"
+	return 1
+fi
+
+if [ -e $SHELL ]; then
+	# run with user specified shell
+	$SHELL $BATTERY_LOCATION/main.sh $@
+else
+	# or fall back to sh
+	sh $BATTERY_LOCATION/main.sh $@
+fi
