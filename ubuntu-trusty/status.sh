@@ -3,10 +3,10 @@
 #
 _battery_status_usage () {
 	echo "usage: battery status [options]"
-	echo "\t-h - print this help"
-	echo "\t-H - show health"
-	echo "\t-s - show electronical stats"
-	echo "\t-i - show general battery information"
+	echo -e "\t-h - print this help"
+	echo -e "\t-H - show health"
+	echo -e "\t-s - show electronical stats"
+	echo -e "\t-i - show general battery information"
 
 	return 1
 }

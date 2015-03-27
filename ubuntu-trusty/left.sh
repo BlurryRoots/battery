@@ -3,6 +3,11 @@
 #
 _battery_left_usage () {
 	echo "usage: battery left [options]"
+	echo -e "\t-h - print this help"
+	echo -e "\t-p - percentage"
+	echo -e "\t-t - in hours and minutes"
+
+	return 1
 }
 
 # calculate something ($2) with a certain precision ($1)
@@ -21,6 +26,8 @@ batter_left_percent () {
 
 	local formular="($charge_now / $charge_full) * 100"
 	echo $(batter_left_calc 2 "$formular")%
+
+	return 0
 }
 
 #
@@ -43,6 +50,8 @@ batter_left_time () {
 	local minutes_only=$(batter_left_calc 0 "$minutes_only_point / 1")
 
 	echo "$hours_only h, $minutes_only m until $resulting_state"
+
+	return 0
 }
 
 #
