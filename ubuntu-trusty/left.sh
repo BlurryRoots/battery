@@ -31,7 +31,8 @@ batter_left_time () {
 	local formular="($charge_full / $current_now)"
 	local hours_left=$(batter_left_calc 2 "$formular")
 	local hours_only=$(batter_left_calc 0 "$hours_left / 1")
-	local minutes_only=$(batter_left_calc 2 "($hours_left - $hours_only) * 60")
+	local minutes_only_point=$(batter_left_calc 2 "($hours_left - $hours_only) * 60")
+	local minutes_only=$(batter_left_calc 0 "$minutes_only_point / 1")
 
 	echo "$hours_only h, $minutes_only m"
 }
