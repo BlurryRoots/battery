@@ -25,16 +25,24 @@ batter_left_percent () {
 
 #
 batter_left_time () {
-	local charge_full=`cat $_battery_path/charge_full`
+	local mode_name=`cat $_battery_path/status`
+	local charge_now=`cat $_battery_path/charge_now`
+	local resulting_state="discharged"
+	if [ "Charging" = "$mode_name" ]; then
+		local charge_full=`cat $_battery_path/charge_full`
+		charge_now=$(batter_left_calc 0 "$charge_full - $charge_now")
+		resulting_state="charged"
+	fi
+
 	local current_now=`cat $_battery_path/current_now`
 
-	local formular="($charge_full / $current_now)"
+	local formular="($charge_now / $current_now)"
 	local hours_left=$(batter_left_calc 2 "$formular")
 	local hours_only=$(batter_left_calc 0 "$hours_left / 1")
 	local minutes_only_point=$(batter_left_calc 2 "($hours_left - $hours_only) * 60")
 	local minutes_only=$(batter_left_calc 0 "$minutes_only_point / 1")
 
-	echo "$hours_only h, $minutes_only m"
+	echo "$hours_only h, $minutes_only m until $resulting_state"
 }
 
 #
